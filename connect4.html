@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Connect 4 AI</title>
+<style>
+body {
+    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 20px;
+}
+#board {
+    display: grid;
+    grid-template-columns: repeat(7, 80px);
+    grid-template-rows: repeat(6, 80px);
+    gap: 5px;
+    margin: 0 auto;
+}
+.cell {
+    width: 80px;
+    height: 80px;
+    background: #1e90ff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+.disc {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: white;
+}
+.red { background: red; }
+.yellow { background: yellow; }
+#status {
+    font-size: 24px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+#reset {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+#modeSelect {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+
+<!-- FOOTER -->
+<style>
+    .site-footer {
+        background: #2d7d46;
+        padding: 25px;
+        color: white;
+        text-align: center;
+        margin-top: 60px;
+        font-family: Arial, sans-serif;
+    }
+
+    .footer-links {
+        margin-bottom: 12px;
+    }
+
+    .footer-links a {
+        color: white;
+        margin: 0 18px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+    .footer-text {
+        font-size: 14px;
+        opacity: 0.85;
+    }
+</style>
+
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="connect4.html">Connect 4</a>
+        <a href="resume.html">Resume</a>
+        <a href="../pages/scratch.html">Scratch Page</a>
+    </div>
+    <p class="footer-text">© 2025 Kick The Can. All rights reserved.</p>
+</footer>
+<body>
+
+<h1>Connect 4</h1>
+
+<select id="modeSelect">
+  <option value="pvp" selected>2 Players</option>
+  <option value="ai">Play vs AI</option>
+</select>
+
+<div id="board"></div>
+<div id="status">Player Red's Turn</div>
+<button id="reset">Play Again</button>
+
+<script>
+const ROWS = 6;
+const COLS = 7;
+let board = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+let currentPlayer = "red";
+let gameOver = false;
+let aiEnabled = false;
+const boardDiv = document.getElementById("board");
+const statusDiv = document.getElementById("status");
+const modeSelect = document.getElementById("modeSelect");
+
+// Build board UI
+for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.dataset.row = r;
+        cell.dataset.col = c;
+        cell.addEventListener("click", () => handleMove(c));
+        boardDiv.appendChild(cell);
+    }
+}
+
+modeSelect.addEventListener("change", () => {
+    aiEnabled = modeSelect.value === "ai";
+    resetBoard();
+});
+
+// Handle player move
+function handleMove(col) {
+    if (gameOver) return;
+    // If AI is playing and it's AI's turn, ignore clicks
+    if (aiEnabled && currentPlayer === "yellow") return;
+
+    if (makeMove(col, currentPlayer)) {
+        if (!gameOver && aiEnabled && currentPlayer === "yellow") {
+            setTimeout(() => aiMove(), 300);
+        }
+    }
+}
+
+function makeMove(col, player) {
+    for (let row = ROWS - 1; row >= 0; row--) {
+        if (board[row][col] === null) {
+            board[row][col] = player;
+            updateUI(row, col, player);
+
+            if (checkWin(row, col)) {
+                statusDiv.textContent = `${capitalize(player)} WINS!`;
+                gameOver = true;
+                return true;
+            }
+
+            if (checkDraw()) {
+                statusDiv.textContent = "It's a DRAW!";
+                gameOver = true;
+                return true;
+            }
+
+            currentPlayer = player === "red" ? "yellow" : "red";
+            statusDiv.textContent = `Player ${capitalize(currentPlayer)}'s Turn`;
+            return true;
+        }
+    }
+    return false;
+}
+
+function updateUI(row, col, player) {
+    const cells = document.querySelectorAll(".cell");
+    const index = row * COLS + col;
+    const disc = document.createElement("div");
+    disc.classList.add("disc", player);
+    cells[index].appendChild(disc);
+}
+
+function checkDraw() {
+    return board.every(row => row.every(cell => cell !== null));
+}
+
+function checkWin(r, c) {
+    const directions = [
+        { dr: 0, dc: 1 },
+        { dr: 1, dc: 0 },
+        { dr: 1, dc: 1 },
+        { dr: 1, dc: -1 }
+    ];
+    for (let { dr, dc } of directions) {
+        if (count(r, c, dr, dc) + count(r, c, -dr, -dc) >= 3) return true;
+    }
+    return false;
+}
+
+function count(r, c, dr, dc) {
+    let total = 0;
+    const player = board[r][c];
+    for (let i = 1; i < 4; i++) {
+        let nr = r + dr * i;
+        let nc = c + dc * i;
+        if (nr < 0 || nr >= ROWS || nc < 0 || nc >= COLS) break;
+        if (board[nr][nc] !== player) break;
+        total++;
+    }
+    return total;
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// Simple AI: win/block/random
+function aiMove() {
+    if (gameOver) return;
+    const aiPlayer = "yellow";
+    const humanPlayer = "red";
+
+    // Try to win
+    for (let c = 0; c < COLS; c++) {
+        const r = getAvailableRow(c);
+        if (r === -1) continue;
+        board[r][c] = aiPlayer;
+        if (checkWin(r, c)) {
+            makeMove(c, aiPlayer);
+            return;
+        }
+        board[r][c] = null;
+    }
+
+    // Block human win
+    for (let c = 0; c < COLS; c++) {
+        const r = getAvailableRow(c);
+        if (r === -1) continue;
+        board[r][c] = humanPlayer;
+        if (checkWin(r, c)) {
+            board[r][c] = null;
+            makeMove(c, aiPlayer);
+            return;
+        }
+        board[r][c] = null;
+    }
+
+    // Else random
+    const validCols = [];
+    for (let c = 0; c < COLS; c++) {
+        if (getAvailableRow(c) !== -1) validCols.push(c);
+    }
+    const choice = validCols[Math.floor(Math.random() * validCols.length)];
+    makeMove(choice, aiPlayer);
+}
+
+function getAvailableRow(col) {
+    for (let row = ROWS - 1; row >= 0; row--) {
+        if (board[row][col] === null) return row;
+    }
+    return -1;
+}
+
+// Reset board
+function resetBoard() {
+    board = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+    currentPlayer = "red";
+    gameOver = false;
+    statusDiv.textContent = "Player Red's Turn";
+    document.querySelectorAll(".disc").forEach(d => d.remove());
+}
+
+document.getElementById("reset").onclick = resetBoard;
+</script>
+
+</body>
+</html>

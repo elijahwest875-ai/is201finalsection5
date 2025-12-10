@@ -1,0 +1,107 @@
+body{
+    background-color: lightblue;
+    
+}
+
+.center-video {
+    display: flex;
+    justify-content: center;
+}
+
+
+.heading-box {
+    background-color: #1a7d3b; /* dark green */
+    color: white;
+    margin: 0 auto;
+    padding: 12px 20px;
+    border-radius: 6px;
+    display: inline-block; /* only as wide as heading text */
+    margin-bottom: 20px;
+}
+
+.title-box {
+    background-color: white;     /* dark green */
+    color: white;
+    padding: 6px 14px;             /* small + tight */
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+h1{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 56px;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+h2{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    font-style: italic;
+    
+}
+
+
+h3{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    font-style: italic;
+    
+}
+
+h4{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+   
+}
+
+h5{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+   
+}
+
+h6{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+h7{
+    color: black;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    font-size: 56px;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
+li{ color : darkgray; 
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+font-size:20px;
+text-align: left;
+
+}

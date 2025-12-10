@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kick The Can | Home</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        color: #333;
+    }
+
+    /* Navbar */
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        background: #2d7d46;
+        color: white;
+    }
+
+    header img {
+        width: 70px;
+        height: auto;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 22px;
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 80px 20px;
+        background: #e8f7ec;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+        color: #2d7d46;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        font-size: 20px;
+        max-width: 650px;
+    }
+
+    .hero button {
+        margin-top: 25px;
+        padding: 15px 40px;
+        font-size: 20px;
+        background: #1e6cc7;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .hero button:hover {
+        background: #155a9a;
+    }
+
+    /* Services Preview */
+    .services {
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .services h2 {
+        font-size: 36px;
+        color: #2d7d46;
+    }
+
+    .service-box {
+        max-width: 900px;
+        margin: 20px auto;
+        background: #f3faf5;
+        padding: 30px;
+        border-radius: 10px;
+        border-left: 6px solid #1e6cc7;
+        font-size: 20px;
+        text-align: left;
+    }
+.video-section {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.video-section h2 {
+    font-size: 36px;
+    color: #2d7d46;
+    margin-bottom: 20px;
+}
+
+/* Responsive YouTube Video */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    border: none;
+}
+    /* Footer */
+    footer {
+        background: #2d7d46;
+        padding: 20px;
+        color: white;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+</style>
+</head>
+<!-- FOOTER -->
+<style>
+    .site-footer {
+        background: #2d7d46;
+        padding: 25px;
+        color: white;
+        text-align: center;
+        margin-top: 60px;
+        font-family: Arial, sans-serif;
+    }
+
+    .footer-links {
+        margin-bottom: 12px;
+    }
+
+    .footer-links a {
+        color: white;
+        margin: 0 18px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .footer-links a:hover {
+        text-decoration: underline;
+    }
+
+    .footer-text {
+        font-size: 14px;
+        opacity: 0.85;
+    }
+</style>
+
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="connect4.html">Connect 4</a>
+        <a href="resume.html">Resume</a>
+        <a href="../pages/scratch.html">Scratch Page</a>
+    </div>
+    <p class="footer-text">© 2025 Kick The Can. All rights reserved.</p>
+</footer>
+
+<body>
+
+<header>
+    <img src="../photos/trashcan.png" alt="Kick The Can Logo">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="pages/services.html">Services</a>
+        <a href="pages/about.html">About</a>
+        <a href="pages/schedule.html">Schedule Service</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h1>Kick The Can</h1>
+    <p>Never forget trash day again. We take your cans to the curb and bring them back — every single week.</p>
+    <a href="pages/schedule.html">
+        <button>Schedule Service</button>
+    </a>
+</div>
+
+<section class="services">
+    <h2>What We Do</h2>
+    <div class="service-box">
+        ✔ Take your trash cans to the curb  
+        <br><br>
+        ✔ Bring them back after pickup  
+        <br><br>
+        ✔ Reliable weekly round-trip service  
+        <br><br>
+        ✔ Only $30/month
+    </div>
+</section>
+
+<section class="video-section">
+    <h2>How It Works</h2>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube.com/embed/Tz8nsipsuQI?si=qKvVhatVVKBPfVkE&amp;start=23" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+    </div>
+</section>
+
+<footer>
+    Contact us: 480-975-5576 | elijah.west875@gmail.com
+</footer>
+
+</body>
+</html>
